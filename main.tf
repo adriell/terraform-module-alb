@@ -28,6 +28,23 @@ resource "aws_lb_listener" "listener" {
     }
 }
 
+resource "aws_lb_listener_rule" "http" {
+    count = var.create_http_listener_rule ? 1 : 0
+
+    listener_arn      = var.listener_arn
+    priority          = 100
+
+    action {
+      type             = "forward"
+      target_group_arn = aws_lb_target_group.target_group.arn
+    }
+    condition {
+      host_header {
+        values = [var.host_header]
+      }
+    }
+}
+
 resource "aws_lb_target_group" "target_group" {
     name                 = "${var.name}-tg"
     port                 = var.listener_port

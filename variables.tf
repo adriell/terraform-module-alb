@@ -4,6 +4,24 @@ variable "enabled"{
     default     = true
 }
 
+variable "create_http_listener_rule"{
+    description = "Habilita a criação de um custom listener"
+    type        = bool
+    default     = false
+}
+
+variable "listener_arn" {
+    description = "Listener existe para adicionar a rule"
+    type        = string
+    default     = null
+}
+
+variable "host_header" {
+    description = "Host para adicionar na listener rule"
+    type        = string
+    default     = null
+}
+
 variable "name" {
     description = "Nome do ALB"
     type        = string
@@ -106,4 +124,10 @@ variable "tags" {
     description = "Map de tags"
     type        = map(string)
     default     = {}
+}
+
+variable "load_balancer_arn" {
+    description = "Para adicionar apenas o listener em um load balancer existente, basta informar o arn do LB"
+    type        = string
+    default     = null
 }
